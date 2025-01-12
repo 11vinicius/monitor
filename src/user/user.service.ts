@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prismaService';
-import { UserDto } from './dto/User';
+import { UserDto } from './dto/User.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -8,11 +9,12 @@ export class UserService {
 
   async create(user: UserDto):Promise<UserDto> {
     try {
+      const passwordHashed = await bcrypt.hash(user.password, 10)
       return await this.prisma.user.create({ 
         data: {
           name: user.name,  
           email: user.email,
-          password: user.password,
+          password: passwordHashed, 
           avatar: user.avatar ? user.avatar : null
         } 
       });
@@ -20,7 +22,6 @@ export class UserService {
       throw new HttpException('Email já cadastrado', HttpStatus.CONFLICT);
     }
   }
-
   async findAll():Promise<UserDto[]> {
     try {
      return await this.prisma.user.findMany();
@@ -28,7 +29,6 @@ export class UserService {
       throw new HttpException('Dados não encontrados', HttpStatus.NOT_FOUND);
     }
   }
-
   async findOne(id: string):Promise<UserDto> {
     try {
       return await this.prisma.user.findUnique({
@@ -43,7 +43,7 @@ export class UserService {
 
   async update(id: string, body: UserDto) {
     try {
-        await this.prisma.user.update({
+       return await this.prisma.user.update({
           where: {
             id: id
           },
@@ -58,7 +58,6 @@ export class UserService {
       throw new HttpException('Dado não encontrado', HttpStatus.NOT_FOUND);
     }
   }
-
   async remove(id: string) {
     try {
       const user = await this.prisma.user.findUnique({

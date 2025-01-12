@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, UseInterce
 import { UserService } from './user.service';
 import { FileInterceptor} from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { UserDto } from './dto/User';
+import { UserDto } from './dto/User.dto';
 
 
 @Controller('user')
@@ -42,10 +42,10 @@ export class UserController {
     return this.userService.findOne(id);
   }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() body: UserCreateDto) {
-  //   return this.userService.update(id, );
-  // }
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() body: UserDto) {
+    return this.userService.update(id, body);
+  }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
