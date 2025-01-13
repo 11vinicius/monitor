@@ -6,7 +6,7 @@ import { UserDto } from './dto/User.dto';
 import { Public } from 'src/decorator/public.decorator';
 
 
-@Controller('user')
+@Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

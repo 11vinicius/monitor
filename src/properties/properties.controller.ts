@@ -2,9 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { PropertyService } from './properties.service';
 import { PropertyDto } from './dto/Property.dto';
 import { CurrentUser } from 'src/decorator/currentUser.decorator';
-import { UserDto } from 'src/users/dto/User.dto';
 
-@Controller('property')
+@Controller('properties')
 export class PropertyController {
   constructor(
     private readonly propertyService: PropertyService,

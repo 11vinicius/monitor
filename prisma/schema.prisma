@@ -40,7 +40,7 @@ model Cattle {
   user   Properties       @relation(fields: [property_id], references: [id])
   gender                String
   discription           String
-  identification_number Int
+  identification_number Int @unique
   date_of_birth         DateTime
   created_at            DateTime @default(now())
   updated_at            DateTime @updatedAt
