@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
-import { UserModule } from './user/user.module';
-import { PropertyModule } from './property/property.module';
+import { UserModule } from './users/user.module';
+import { PropertiesModule } from './properties/properties.module';
 import { AuthModule } from './auth/Auth.module';
 import { AuthGuard } from './auth/Auth.guard';
+import { CattleModule } from './cattle/cattle.module';
 
 
 @Module({
-  imports: [UserModule, PropertyModule, AuthModule],
+  imports: [UserModule, PropertiesModule, AuthModule, CattleModule],
   controllers: [],
   providers: [AuthGuard],
 })

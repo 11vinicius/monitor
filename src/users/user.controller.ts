@@ -3,12 +3,14 @@ import { UserService } from './user.service';
 import { FileInterceptor} from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { UserDto } from './dto/User.dto';
+import { Public } from 'src/decorator/public.decorator';
 
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Public()
   @Post()
   @UseInterceptors(
     FileInterceptor('avatar', {

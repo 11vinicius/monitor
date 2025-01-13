@@ -10,7 +10,7 @@ export class UserService {
   async create(user: UserDto):Promise<UserDto> {
     try {
       const passwordHashed = await bcrypt.hash(user.password, 10)
-      return await this.prisma.user.create({ 
+      return await this.prisma.users.create({ 
         data: {
           name: user.name,  
           email: user.email,
@@ -24,14 +24,14 @@ export class UserService {
   }
   async findAll():Promise<UserDto[]> {
     try {
-     return await this.prisma.user.findMany();
+     return await this.prisma.users.findMany();
     } catch (error) {
       throw new HttpException('Dados não encontrados', HttpStatus.NOT_FOUND);
     }
   }
   async findOne(id: string):Promise<UserDto> {
     try {
-      return await this.prisma.user.findUnique({
+      return await this.prisma.users.findUnique({
         where: {
           id: id
         }
@@ -43,7 +43,7 @@ export class UserService {
 
   async update(id: string, body: UserDto) {
     try {
-       return await this.prisma.user.update({
+       return await this.prisma.users.update({
           where: {
             id: id
           },
@@ -60,13 +60,13 @@ export class UserService {
   }
   async remove(id: string) {
     try {
-      const user = await this.prisma.user.findUnique({
+      const user = await this.prisma.users.findUnique({
         where: {
           id: id
         }
       })
       if(user != null){
-        return this.prisma.user.delete({
+        return this.prisma.users.delete({
           where: {
             id: user.id
           }

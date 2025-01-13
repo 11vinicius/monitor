@@ -8,7 +8,7 @@ export class PropertyService {
   constructor(private readonly prisma: PrismaService) {}
   async create(property: PropertyDto, userId: string):Promise<PropertyDto> {
     try {
-      return await this.prisma.property.create({
+      return await this.prisma.properties.create({
         data:{
           name: property.name,
           number_registration: property.number_registration,
@@ -23,7 +23,7 @@ export class PropertyService {
   }
   findAll(userId: string):Promise<PropertyDto[]> {
     try {
-      return this.prisma.property.findMany(
+      return this.prisma.properties.findMany(
         {
           where: {
             user_id: userId
@@ -36,7 +36,7 @@ export class PropertyService {
   }
   async findOne(id: string):Promise<PropertyDto> {
     try {
-      return await this.prisma.property.findUnique({
+      return await this.prisma.properties.findUnique({
         where: {
           id: id
         }
@@ -46,7 +46,7 @@ export class PropertyService {
     }
   }
   async update(id: string, property: PropertyDto) {
-    return await this.prisma.property.update({
+    return await this.prisma.properties.update({
       where: {
         id: id
       },
@@ -59,13 +59,13 @@ export class PropertyService {
     })
   }
   async remove(id: string) {
-    const user = await this.prisma.property.findUnique({
+    const user = await this.prisma.properties.findUnique({
       where: {
         id: id
       }
     })
     if(user != null){
-      return this.prisma.property.delete({
+      return this.prisma.properties.delete({
         where: {
           id: user.id
         }

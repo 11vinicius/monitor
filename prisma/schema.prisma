@@ -8,38 +8,41 @@ datasource db {
       url      = env("DATABASE_URL")
 }
 
-model User {
+model Users {
   id          String   @id @default(uuid())
   name        String
   avatar      String?
   email       String  @unique
   password    String
-  property_id Property[]
+  property_id Properties[]
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
 }
 
-model Property {
+model Properties {
   id                     String   @id @default(uuid()) 
   name                   String
   number_registration    String
   lat                    String
   long                   String
   user_id                String
-  user   User            @relation(fields: [user_id], references: [id])
+  user   Users           @relation(fields: [user_id], references: [id])
   created_at             DateTime @default(now())
+  animal_id  Cattle[]
   updated_at             DateTime @updatedAt
 }
 
-// model Bull {
-//   id                    String   @id @default(uuid()) @db.Uuid
-//   avatar                String
-//   origin_id             String
-//   gender                String
-//   discription           String
-//   identification_number Int
-//   date_of_birth         DateTime
-//   created_at            DateTime @default(now())
-//   updated_at            DateTime @updatedAt
-// }
+model Cattle {
+  id                    String   @id @default(uuid()) @db.Uuid
+  avatar                String
+  origin_id             String
+  property_id           String
+  user   Properties       @relation(fields: [property_id], references: [id])
+  gender                String
+  discription           String
+  identification_number Int
+  date_of_birth         DateTime
+  created_at            DateTime @default(now())
+  updated_at            DateTime @updatedAt
+}
 
