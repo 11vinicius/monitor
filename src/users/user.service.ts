@@ -15,7 +15,7 @@ export class UserService {
           name: user.name,  
           email: user.email,
           password: passwordHashed, 
-          avatar: user.avatar ? user.avatar : null
+          avatar: user.avatar? user.avatar : null
         } 
       });
     } catch (error) {

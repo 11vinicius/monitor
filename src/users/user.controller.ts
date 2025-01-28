@@ -26,12 +26,13 @@ export class UserController {
     }),
   )
   create(@Body() body: UserDto, @UploadedFile() avatar: Express.Multer.File) {
-    return this.userService.create({
+    return  this.userService.create({
       name: body.name,  
       email: body.email,  
       password: body.password,
-      avatar: avatar.path
+      avatar: !avatar? null : avatar.path
     });
+
   }
 
   @Get()

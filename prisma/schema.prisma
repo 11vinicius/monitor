@@ -1,48 +1,47 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
-      url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 model Users {
-  id          String   @id @default(uuid())
+  id          String       @id @default(uuid())
   name        String
   avatar      String?
-  email       String  @unique
+  email       String       @unique
   password    String
+  created_at  DateTime     @default(now())
+  updated_at  DateTime     @updatedAt
   property_id Properties[]
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
 }
 
 model Properties {
-  id                     String   @id @default(uuid()) 
-  name                   String
-  number_registration    String
-  lat                    String
-  long                   String
-  user_id                String
-  user   Users           @relation(fields: [user_id], references: [id])
-  created_at             DateTime @default(now())
-  animal_id  Cattle[]
-  updated_at             DateTime @updatedAt
+  id                  String   @id @default(uuid())
+  name                String
+  number_registration String
+  lat                 String
+  long                String
+  user_id             String
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+  animal_id           Cattle[]
+  user                Users    @relation(fields: [user_id], references: [id])
 }
 
 model Cattle {
-  id                    String   @id @default(uuid()) @db.Uuid
+  id                    String     @id @default(uuid()) @db.Uuid
   avatar                String
   origin_id             String
   property_id           String
-  user   Properties       @relation(fields: [property_id], references: [id])
   gender                String
   discription           String
-  identification_number Int @unique
+  identification_number Int        @unique
   date_of_birth         DateTime
-  created_at            DateTime @default(now())
-  updated_at            DateTime @updatedAt
+  created_at            DateTime   @default(now())
+  updated_at            DateTime   @updatedAt
+  user                  Properties @relation(fields: [property_id], references: [id])
 }
-
