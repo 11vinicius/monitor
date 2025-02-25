@@ -61,6 +61,12 @@ $app->singleton(
 
 $app->configure('app');
 
+$app->withEloquent();
+
+$app->register(Illuminate\Database\MigrationServiceProvider::class);
+
+$app->withFacades();
+
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
