@@ -28,7 +28,7 @@ class OwnershipRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
-            'registration_number' => ['required', 'integer',  Rule::unique('ownership')->ignore($id)],
+            'registration_number' => ['required', 'integer',  Rule::unique('ownerships')->ignore($id)],
             'lat' => ['required', 'string', 'max:255'],
             'long' => ['required', 'string', 'max:255'],
         ];

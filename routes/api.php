@@ -5,9 +5,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OwnershipController;
+use App\Http\Controllers\CattleController;
 
 Route::post('/signIn', [AuthController::class, 'signIn']);
 Route::post('/user', [UserController::class, 'store']);
+
+
+Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'cattle'], function () {
+    Route::get('/', [CattleController::class, 'index']); 
+  
+});
 
 Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'ownership'], function () {
     Route::get('/', [OwnershipController::class, 'index']); 

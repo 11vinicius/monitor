@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ownership extends Model
 {
-    protected $table = 'ownership';
+    protected $table = 'ownerships';
     protected $fillable = [
         'user_id',
         'name',

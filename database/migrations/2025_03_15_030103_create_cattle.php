@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ownerships', function (Blueprint $table) {
+        Schema::create('cattle', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description');
+            $table->string('identification_number');
             $table->string('registration_number');
-            $table->string('lat');
-            $table->string('long');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('breed');
+            $table->string('sex');
+            $table->date('date_of_birth');
+            $table->string('origin_of_cattle');
+            $table->foreignId('ownership_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ownerships');
+        Schema::dropIfExists('cattle');
     }
 };
