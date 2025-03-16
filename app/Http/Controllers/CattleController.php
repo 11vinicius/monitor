@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Cattle;
 use App\Http\Requests\CattleRequest;
+use Carbon\Carbon;
+
 
 class CattleController extends Controller
 {
@@ -27,52 +29,70 @@ class CattleController extends Controller
     {
         return $this->cattle->paginate();   
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
-    }
+        $avatar = $request->file('avatar')
+        ->storeAs('avatars', Carbon::now()->timestamp.'-'.$request->file('avatar')->getClientOriginalName(), 'public'); 
 
+        return  $this->cattle->create([
+            'avatar'=>$avatar,
+            'origin_of_cattle'=>$request->origin_of_cattle,
+            'identification_number'=>$request->identification_number,
+            'registration_number'=>$request->registration_number,
+            'breed'=>$request->breed,
+            'sex'=>$request->sex,
+            'date_of_birth'=>$request->date_of_birth,
+        ]);
+    }
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        //
+        try {
+            return $this->cattle->where('id', $id)->firstOrFail();
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'dados não encontrado'], 404);
+        }
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
-    }
+        try {
+            $avatar = $request->file('avatar')
+            ->storeAs('avatars', Carbon::now()->timestamp.'-'.$request->file('avatar')->getClientOriginalName(), 'public');
 
+            $cattle = $this->cattle
+            ->where('id', $id)->firstOrFail()
+            ->update([
+                'avatar'=>$avatar,
+                'origin_of_cattle'=>$request->origin_of_cattle,
+                'identification_number'=>$request->identification_number,
+                'registration_number'=>$request->registration_number,
+                'breed'=>$request->breed,
+                'sex'=>$request->sex,
+                'date_of_birth'=>$request->date_of_birth,
+            ]);
+
+            return $this->cattle->findOrFail($id);
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'dados não encontrado'], 404);
+        }
+    }
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            return $this->cattle->where('id', $id)->firstOrFail()->delete(); 
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'dados não encontrado'], 404);
+        }
     }
 }

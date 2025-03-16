@@ -13,17 +13,16 @@ return new class extends Migration
     {
         Schema::create('cattle', function (Blueprint $table) {
             $table->id();
-            $table->string('identification_number');
-            $table->string('registration_number');
-            $table->string('breed');
-            $table->string('sex');
+            $table->text('identification_number');
+            $table->text('registration_number');
+            $table->text('avatar');
+            $table->text('breed');
+            $table->text('sex');
             $table->date('date_of_birth');
             $table->string('origin_of_cattle');
-            $table->foreignId('ownership_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */

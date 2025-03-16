@@ -12,8 +12,11 @@ Route::post('/user', [UserController::class, 'store']);
 
 
 Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'cattle'], function () {
+    Route::post('/{id}', [CattleController::class, 'update']); 
     Route::get('/', [CattleController::class, 'index']); 
-  
+    Route::get('/{id}', [CattleController::class, 'show']); 
+    Route::delete('/{id}', [CattleController::class, 'destroy']);
+    Route::post('/', [CattleController::class, 'store']); 
 });
 
 Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'ownership'], function () {
