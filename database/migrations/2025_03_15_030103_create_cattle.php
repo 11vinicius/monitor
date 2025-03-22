@@ -12,15 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('cattle', function (Blueprint $table) {
-            $table->id();
-            $table->text('identification_number');
-            $table->text('registration_number');
-            $table->text('avatar');
-            $table->text('breed');
-            $table->text('sex');
-            $table->date('date_of_birth');
-            $table->string('origin_of_cattle');
-            $table->timestamps();
+            $table->id(); // SERIAL PRIMARY KEY
+            $table->text('name'); // Nome
+            $table->text('identification_number'); // Numero de identificação
+            $table->text('registration_number'); // Numero de registro
+            $table->text('avatar'); // Foto
+            $table->text('breed'); // Raca
+            $table->text('sex'); // Masculino, Feminino
+            $table->boolean('is_reproductively_mature')->default(false); // Indica se atingiu a maturidade reprodutiva
+            $table->date('date_of_birth');  // Data de nascimento
+            $table->string('origin_of_cattle'); // Origem do animal
+            $table->timestamps(); // created_at e updated_at
         });
     }
     /**

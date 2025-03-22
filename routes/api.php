@@ -10,7 +10,6 @@ use App\Http\Controllers\CattleController;
 Route::post('/signIn', [AuthController::class, 'signIn']);
 Route::post('/user', [UserController::class, 'store']);
 
-
 Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'cattle'], function () {
     Route::post('/{id}', [CattleController::class, 'update']); 
     Route::get('/', [CattleController::class, 'index']); 
