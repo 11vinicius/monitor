@@ -7,7 +7,6 @@ use App\Models\Cattle;
 use App\Http\Requests\CattleRequest;
 use Carbon\Carbon;
 
-
 class CattleController extends Controller
 {
     protected $cattle;
@@ -37,7 +36,8 @@ class CattleController extends Controller
         $avatar = $request->file('avatar')
         ->storeAs('avatars', Carbon::now()->timestamp.'-'.$request->file('avatar')->getClientOriginalName(), 'public'); 
 
-        return  $this->cattle->create([
+        return $cattle = $this->cattle->create([
+            'name'=>$request->name,
             'avatar'=>$avatar,
             'origin_of_cattle'=>$request->origin_of_cattle,
             'identification_number'=>$request->identification_number,
@@ -46,6 +46,7 @@ class CattleController extends Controller
             'sex'=>$request->sex,
             'date_of_birth'=>$request->date_of_birth,
         ]);
+
     }
     /**
      * Display the specified resource.

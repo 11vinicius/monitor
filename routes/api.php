@@ -6,9 +6,16 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\OwnershipController;
 use App\Http\Controllers\CattleController;
+use App\Http\Controllers\ConsultingController;
+use App\Http\Controllers\CattleEventTypeController;
 
 Route::post('/signIn', [AuthController::class, 'signIn']);
 Route::post('/user', [UserController::class, 'store']);
+
+Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'consulting'], function () {
+    Route::get('/', [ConsultingController::class, 'index']); 
+    Route::post('/', [ConsultingController::class, 'store']); 
+});
 
 Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'cattle'], function () {
     Route::post('/{id}', [CattleController::class, 'update']); 

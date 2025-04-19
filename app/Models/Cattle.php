@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cattle extends Model
 {
     protected $fillable = [
+        'name',
         'identification_number',
         'avatar',
         'registration_number',
