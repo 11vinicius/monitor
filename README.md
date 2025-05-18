@@ -38,6 +38,7 @@ Esta é uma API RESTful desenvolvida com **Laravel**, utilizando **PostgreSQL** 
 
 ## 🐮 Funcionalidades da API
 
+- Cadastro de propeiedades
 - Cadastro de animais
 - Registro de nascimento e compra
 - Controle de vacinação
