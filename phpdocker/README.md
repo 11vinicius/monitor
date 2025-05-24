@@ -30,8 +30,8 @@ add your own hostname on your `/etc/hosts`
 
 Service|Address outside containers
 -------|--------------------------
-Webserver|[localhost:3000](http://localhost:3000)
-PostgreSQL|**host:** `localhost`; **port:** `3004`
+Webserver|[localhost:16000](http://localhost:16000)
+PostgreSQL|**host:** `localhost`; **port:** `16004`
 
 ## Hosts within your environment ##
 
